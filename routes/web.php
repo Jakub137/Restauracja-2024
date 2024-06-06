@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuackController;
+use App\Http\Controllers\ShowData;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/', [ShowData::class, 'showdata']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

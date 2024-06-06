@@ -248,23 +248,17 @@
     <div class="napis_recenzje text-8xl font-bold py-6 bg-orange-600 text-white text-center rounded-lg my-16 w-1/3">Recenzje</div>
 </div>
     <section class="komentarze text-center bg-white py-16">
-        <h2 class="napis_podzielsie text-4xl font-bold mb-8">Podziel się swoją opinią</h2>
-        <textarea class="comment_input w-2/3 h-40 mx-auto p-4 border rounded-lg" placeholder="Napisz swoją recenzję"></textarea>
-        <button onclick="submitComment()" class="mt-4 px-8 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">Wyślij</button>
+    @forelse($data as $item)
         <div class="comment_1 flex items-center bg-gray-100 p-4 rounded-lg shadow-md mt-8 w-2/3 mx-auto">
             <figure class="icon w-10 mr-4"><img src="asset/hamburger.svg"></figure>
             <div>
-                <p class="author_1 text-xl font-bold">Andrzej</p>
-                <p class="andrzej_comment text-lg mt-2">Jestem pod wielkim wrażeniem jakości potraw i obsługi w tej restauracji...</p>
+                <p class="author_1 text-xl font-bold">{{ $item->id }} Smakosz</p>
+                <p class="andrzej_comment text-lg mt-2">{{ $item->message}}</p>
+                <p class="andrzej_comment text-lg mt-2">{{ $item->updated_at}}</p>
             </div>
         </div>
-        <div class="comment_2 flex items-center bg-gray-100 p-4 rounded-lg shadow-md mt-4 w-2/3 mx-auto">
-            <figure class="icon w-10 mr-4"><img src="asset/hamburger.svg"></figure>
-            <div>
-                <p class="autor_2 text-xl font-bold">Weronika</p>
-                <p class="weronika_comment text-lg mt-2">Idealne miejsce na lunch czy kolację z przyjaciółmi...</p>
-            </div>
-        </div>
+    @empty
+    @endforelse
     </section>
 
     <footer class="fixed bottom-0 right-0 p-2 bg-white text-black text-sm">copyright © 2024 Admin</footer>
