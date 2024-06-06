@@ -7,6 +7,11 @@
 <title>Restauracja</title>
 @vite('resources/css/app.css')
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+    html {
+    scroll-behavior: smooth;
+}
+</style>
 </head>
 <body class="font-sans bg-white">
 <header class="relative h-screen bg-cover bg-center" style="background-image: url('asset/background.jpg')">
@@ -18,9 +23,9 @@
             </div>
             <nav>  
                 <ul class="flex space-x-8 text-white text-lg">
-                    <li><a href="#">O nas</a></li>
-                    <li><a href="#">Galeria</a></li>
-                    <li><a href="#">Szefowie kuchni</a></li>
+                    <li><a href="#about">O nas</a></li>
+                    <li><a href="#aboutspecial">Danie polecane</a></li>
+                    <li><a href="#aboutchefs">Szefowie kuchni</a></li>
                     @if (Route::has('login'))                          
                     @auth 
                     <li>
@@ -37,28 +42,28 @@
                                     @endif
                                 @endauth                            
                         @endif
-                    <li><a href="#" class="bg-orange-500 py-2 px-4 rounded-full">Recenzje</a></li>
+                    <li><a href="#aboutcomments" class="bg-orange-500 py-2 px-4 rounded-full">Recenzje</a></li>
                 </ul>
             </nav>  
         </div>
         <div class="main-content text-center text-white absolute top-1/2 left-3/4 transform -translate-x-3/4 -translate-y-1/2">
             <h1 class=" text-4xl font-semibold  AlexBrush-Regular">Twoje smakowe podróże zaczynają się właśnie teraz! Zajrzyj do naszego menu i zanurz się w smakach, które Cię zaskoczą.</h1>
-            <button class="mt-5 px-8 py-3 text-2xl border border-white rounded-full hover:bg-white hover:text-black transition">Menu</button>
+            <button class="mt-5 px-8 py-3 text-2xl border border-white rounded-full hover:bg-white hover:text-black transition"><a href="#aboutmenu">Menu</a></button>
         </div>
     </header>
 
     <div class="about_section relative bg-white py-16">
         <div class="info flex flex-col">
             <div class="about_image w-full p-8">
-                <img src="asset/background2.jpg" alt="Wnętrze restauracji" class="w-full h-auto rounded-lg">
+                <img id="about" src="asset/background2.jpg" alt="Wnętrze restauracji" class="w-full h-auto rounded-lg">
             </div>
-            <div class="about_text w-1/2 bg-yellow-100 bg-opacity-60 p-8 rounded-lg absolute top-3/4 left-1/2 transform -translate-x-1 -translate-y-1/2">
+            <div  class="about_text w-1/2 bg-yellow-100 bg-opacity-60 p-8 rounded-lg absolute mt-10 top-1/4 left-1/2 transform -translate-x-1 -translate-y-1/2">
                 <h2 class="text-3xl font-bold mb-4">Kim jesteśmy?</h2>
                 <p class="text-lg leading-relaxed">Restauracja "Smakosze" została założona w 2017 roku przez troje przyjaciół, którzy dzielili wspólną pasję do gotowania i dzielenia się wyjątkowymi smakami z innymi. Każdy z założycieli wnosił do przedsięwzięcia swoje unikalne umiejętności i doświadczenia, co pozwoliło stworzyć miejsce, które szybko zyskało uznanie w lokalnej społeczności. Zainspirowani kulinarnymi podróżami po różnych zakątkach świata, przyjaciele postanowili, że ich restauracja będzie miejscem, gdzie można odkrywać różnorodne smaki i techniki kulinarne. "Smakosze" szczycą się tym, że serwują dania przygotowywane z najwyższej jakości, lokalnych produktów, co każdego dnia przyciąga do restauracji rzesze smakoszy poszukujących autentycznych doznań.</p>
             </div>
         </div>
     </div>
-<div class="div_menu ml-20 mb-20 mt-20">
+<div id = "aboutmenu" class="div_menu ml-20 mb-10 mt-20 pt-20">
     <div class="napis_menu text-9xl font-bold flex justify-center bg-black text-white rounded-lg pb-4 w-1/4">Menu</div>
 </div>
     <div class="przystawki text-center bg-white py-16 mx-4">
@@ -215,7 +220,7 @@
         </div>
     </div>
 
-    <div class="recommendation bg-white py-16 relative">
+    <div id = "aboutspecial" class="recommendation bg-white py-16 relative">
         <div class="rcm flex flex-col lg:flex-column lg:space-x-8">
             <div class="rcm_image w-full p-8">
                 <img src="asset/polecajka.jpg" alt="Danie polecane przesz szefów kuchni" class="w-full h-auto rounded-lg">
@@ -227,7 +232,7 @@
         </div>
     </div>
 
-    <div class="chefs text-center bg-white py-16">
+    <div id= "aboutchefs" class="chefs text-center bg-white mt-10 pt-20 pb-20">
         <h2 class="text-5xl font-bold mb-20">Szefowie kuchni</h2>
         <div class="chefs_grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
             <div class="chef">
@@ -244,22 +249,25 @@
             </div>
         </div>
     </div>
-<div class="div_recenzje relative left-1/2 ml-20">
+<div id = "aboutcomments" class="div_recenzje left-1/2 ml-20 pt-20">
     <div class="napis_recenzje text-8xl font-bold py-6 bg-orange-600 text-white text-center rounded-lg my-16 w-1/3">Recenzje</div>
 </div>
-    <section class="komentarze text-center bg-white py-16">
+<section class="komentarze text-center bg-white py-16">
     @forelse($data as $item)
-        <div class="comment_1 flex items-center bg-gray-100 p-4 rounded-lg shadow-md mt-8 w-2/3 mx-auto">
-            <figure class="icon w-10 mr-4"><img src="asset/hamburger.svg"></figure>
-            <div>
-                <p class="author_1 text-xl font-bold">{{ $item->id }} Smakosz</p>
-                <p class="andrzej_comment text-lg mt-2">{{ $item->message}}</p>
-                <p class="andrzej_comment text-lg mt-2">{{ $item->updated_at}}</p>
+        <div class="comment_1 flex flex-col lg:flex-row items-start lg:items-center bg-gray-100 p-4 rounded-lg shadow-md mt-8 w-2/3 mx-auto">
+            <figure class="icon w-10 h-10 mb-2 lg:mb-0 lg:mr-4 flex-shrink-0 top-1/2">
+                <img src="asset/hamburger.svg" class="w-full h-full object-cover">
+            </figure>
+            <div class="w-full">
+                <p class="author_1 text-xl font-bold text-center lg:text-left flex justify-center">{{ $item->id }} Smakosz</p>
+                <p class="andrzej_comment text-lg flex items-start text-start mt-2">{{ $item->message }}</p>
+                <p class="andrzej_comment text-lg flex items-start text-start mt-2">{{ $item->updated_at }}</p>
             </div>
         </div>
     @empty
+        <p>No comments yet.</p>
     @endforelse
-    </section>
+</section>
 
     <footer class="fixed bottom-0 right-0 p-2 bg-white text-black text-sm">copyright © 2024 Admin</footer>
 </body>
