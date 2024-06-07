@@ -10,6 +10,6 @@ class ShowData extends Controller
 {
     public function showdata() {
         $data = DB::table('quacks')->get(); // Retrieve data from 'quack' database
-        return view('welcome', compact('data')); // Pass data to 'welcome' view
+        return view('Home', compact('data')); // Pass data to 'welcome' view
     }
 }

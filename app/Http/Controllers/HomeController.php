@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     function hindex () {
-        return view("quacks");
+        return view("Home");
     }
 }
