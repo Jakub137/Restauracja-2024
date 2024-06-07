@@ -29,7 +29,7 @@
                     @if (Route::has('login'))                          
                     @auth 
                     <li>
-                        <a href="{{ url('/dashboard') }}">Login</a>                            
+                        <a href="{{ url('/dashboard') }}">Profil</a>                            
                     </li>
                     @else 
                     <li>

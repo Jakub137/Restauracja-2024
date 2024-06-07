@@ -1,13 +1,12 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuackController;
 use App\Http\Controllers\ShowData;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[HomeController::class, 'hindex'] );
 
 Route::get('/', [ShowData::class, 'showdata']);
 
