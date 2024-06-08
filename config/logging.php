@@ -127,6 +127,12 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+         "quack" => [
+            'driver' => 'single',
+            'path' => storage_path('logs/quack.log'),
+            'level' => 'debug'
+        ],
+
     ],
 
 ];

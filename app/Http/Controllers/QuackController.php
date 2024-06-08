@@ -8,7 +8,9 @@ use App\Http\Requests\StoreQuackRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\View\View;
+
 class QuackController extends Controller
 {
     /**
@@ -34,10 +36,13 @@ class QuackController extends Controller
     {
         //$validated = $request->validate([
         //    'message' => 'required|string|max:255',
-        //]);
+        //]);   
 
         $validated = $request->validated();
         $request->user()->quacks()->create($validated);
+
+        Log::channel("quack")->info($validated["message"]);
+        
         return redirect(route('quacks.index'));
     }
 
