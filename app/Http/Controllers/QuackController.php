@@ -5,20 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Quack;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQuackRequest;
+use COM;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\View\View;
 
 class QuackController extends Controller
 {
+    const TWO_HOURS_IN_SECONDS = 7200;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("quacks",["quacks" => Quack::with("user")->latest()->get()]);
+        $quack = Cache::remember("quack", $this::TWO_HOURS_IN_SECONDS, function() {
+            return Quack::with("user")->latest()->get();
+        });
+
+        return view("quacks",["quacks" => $quack]);
     }
 
     /**
@@ -41,7 +49,8 @@ class QuackController extends Controller
         $validated = $request->validated();
         $request->user()->quacks()->create($validated);
 
-        Log::channel("quack")->info($validated["message"]);
+        Cache::forget("quack");
+        Log::channel("quack")->info("NEW " . $validated["message"]);
         
         return redirect(route('quacks.index'));
     }
@@ -76,10 +85,10 @@ class QuackController extends Controller
     {
         Gate::authorize('update', $quack);
 
-        //$validated = $request->validate([
-        //    'message' => 'required|string|max:255',
-        //]);
         $validated = $request->validated();
+
+        Cache::forget("quack");
+        Log::channel("quack")->info("EDIT: ". $validated["message"]);
 
         $quack->update($validated);
         return redirect(route('quacks.index'));
@@ -90,8 +99,13 @@ class QuackController extends Controller
      */
     public function destroy(Quack $quack): RedirectResponse
     {
+        
         Gate::authorize('delete', $quack);
         $quack->delete();
+
+        Log::channel("quack")->info("DELETE: ". $quack->message);
+        Cache::forget("quack");
+
         return redirect(route("quacks.index"));
     }
 }
